@@ -2,9 +2,17 @@ local UIManager = require("ui/uimanager")
 local Menu = require("ui/widget/menu")
 local InfoMessage = require("ui/widget/infomessage")
 
-local InlineTranslatorUI = {}
+local InlineTranslatorUI = {
+    elements = {}
+}
 
 function InlineTranslatorUI:init()
+    self.event_handler = {
+        on_tap = function(pos)
+            self:handleTap(pos)
+        end
+    }
+    UIManager:registerEventHandler(self.event_handler)
     self.menu_items = {
         {text = "启用翻译", checked = true},
         {text = "翻译缓存", sub_item = true},
